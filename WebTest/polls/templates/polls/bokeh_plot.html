@@ -1,0 +1,15 @@
+{% from macros import embed %}
+
+{% block inner_body %}
+    {% block contents %}
+    {% for doc in docs %}
+        {{ embed(doc) if doc.elementid }}
+        {% for root in doc.roots %}
+        {% block root scoped %}
+            {{ embed(root) | indent(10) }}
+        {% endblock %}
+        {% endfor %}
+    {% endfor %}
+    {% endblock %}
+    {{ plot_script | indent(8) }}
+{% endblock %}
